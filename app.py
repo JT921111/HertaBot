@@ -50,27 +50,36 @@ import random
 def handle_message(event):
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
-        rand = random.randint(1, 100)
-        if(rand == 1):
-            herta = random.randint(1, 218)
-            if(herta == 1):
-                url = request.url_root.replace('http', 'https') + '/static/kurukuru.mp4'
-                prev_url = request.url_root.replace('http', 'https') + '/static/kurukuru.png'
-                line_bot_api.reply_message(
-                    ReplyMessageRequest(
-                        reply_token=event.reply_token,
-                        messages=[VideoMessage(original_content_url = url, preview_image_url = prev_url)]
-                    )
+        text = event.message.text
+        if text == '轉圈圈':
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text = '轉圈圈遊戲進行中，請自行探索~')]
                 )
-            else:
-                url = request.url_root.replace('http', 'https') + '/static/kurukuru-2.mp4'
-                prev_url = request.url_root.replace('http', 'https') + '/static/kurukuru-2.png'
-                line_bot_api.reply_message(
-                    ReplyMessageRequest(
-                        reply_token=event.reply_token,
-                        messages=[VideoMessage(original_content_url = url, preview_image_url = prev_url)]
+            )
+        else:
+            rand = random.randint(1, 100)
+            if(rand == 1):
+                herta = random.randint(1, 218)
+                if(herta == 1):
+                    url = request.url_root.replace('http', 'https') + '/static/kurukuru.mp4'
+                    prev_url = request.url_root.replace('http', 'https') + '/static/kurukuru.png'
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=event.reply_token,
+                            messages=[VideoMessage(original_content_url = url, preview_image_url = prev_url)]
+                        )
                     )
-                )
+                else:
+                    url = request.url_root.replace('http', 'https') + '/static/kurukuru-2.mp4'
+                    prev_url = request.url_root.replace('http', 'https') + '/static/kurukuru-2.png'
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=event.reply_token,
+                            messages=[VideoMessage(original_content_url = url, preview_image_url = prev_url)]
+                        )
+                    )
 
 if __name__ == "__main__":
     app.run()
