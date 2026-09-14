@@ -59,7 +59,7 @@ def handle_message(event):
                 )
             )
         else:
-            rand = random.randint(1, 100)
+            rand = random.randint(1, 3)
             if(rand == 1):
                 herta = random.randint(1, 218)
                 if(herta == 1):
