@@ -65,7 +65,7 @@ def handle_message(event):
             )
         else:
             base_url = 'https://herta-bot.vercel.app'
-            rand = random.randint(1, 3)
+            rand = random.randint(1, 100)
             if(rand == 1):
                 herta = random.randint(1, 218)
                 if(herta == 1):
