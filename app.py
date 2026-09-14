@@ -80,6 +80,3 @@ def handle_message(event):
                             messages=[VideoMessage(original_content_url = url, preview_image_url = prev_url)]
                         )
                     )
-
-if __name__ == "__main__":
-    app.run()
