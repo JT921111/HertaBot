@@ -26,23 +26,28 @@ app = Flask(__name__)
 configuration = Configuration(access_token=os.getenv('CHANNEL_ACCESS_TOKEN'))
 herta_bot_handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
-@app.route("/callback", methods=['POST'])
+@app.route("/callback", methods=["POST"])
 def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
+    signature = request.headers.get("X-Line-Signature")
 
-    # get request body as text
+    if not signature:
+        app.logger.error("Missing X-Line-Signature")
+        abort(400)
+
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
 
-    # handle webhook body
+    app.logger.info("Received LINE webhook")
+
     try:
         herta_bot_handler.handle(body, signature)
     except InvalidSignatureError:
-        app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
+        app.logger.error("Invalid LINE signature")
         abort(400)
+    except Exception:
+        app.logger.exception("Webhook processing failed")
+        abort(500)
 
-    return 'OK'
+    return "OK"
 
 import random
 
