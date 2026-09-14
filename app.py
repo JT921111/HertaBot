@@ -64,12 +64,13 @@ def handle_message(event):
                 )
             )
         else:
+            base_url = 'https://your-project.vercel.app'
             rand = random.randint(1, 3)
             if(rand == 1):
                 herta = random.randint(1, 218)
                 if(herta == 1):
-                    url = request.url_root.replace('http', 'https') + '/static/kurukuru.mp4'
-                    prev_url = request.url_root.replace('http', 'https') + '/static/kurukuru.png'
+                    url = base_url + '/static/kurukuru.mp4'
+                    prev_url = base_url + '/static/kurukuru.png'
                     line_bot_api.reply_message(
                         ReplyMessageRequest(
                             reply_token=event.reply_token,
@@ -77,8 +78,8 @@ def handle_message(event):
                         )
                     )
                 else:
-                    url = request.url_root.replace('http', 'https') + '/static/kurukuru-2.mp4'
-                    prev_url = request.url_root.replace('http', 'https') + '/static/kurukuru-2.png'
+                    url = base_url + '/static/kurukuru-2.mp4'
+                    prev_url = base_url + '/static/kurukuru-2.png'
                     line_bot_api.reply_message(
                         ReplyMessageRequest(
                             reply_token=event.reply_token,
